@@ -3,6 +3,8 @@ name: Build Raspberry Pi 5 Kernel
 on:
   push:
     branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -18,10 +20,11 @@ jobs:
           sudo apt-get install -y gcc-aarch64-linux-gnu make
 
       - name: Compile Kernel
+        working-directory: "New folder"
         run: make
 
       - name: Upload kernel8.img
         uses: actions/upload-artifact@v4
         with:
           name: pi5-kernel
-          path: kernel8.img
+          path: "New folder/kernel8.img"
